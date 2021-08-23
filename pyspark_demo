@@ -1,0 +1,17 @@
+from pyspark.sql import SparkSession
+
+# Start by manually defining the SparkSession to start a connection to Spark
+spark = SparkSession.builder.getOrCreate()
+
+# Allocate the numbers 0-999 to an RDD - Create an RDD of an array
+numbers = range(1000)
+rdd = spark.sparkContext.parallelize(numbers)
+
+# Visualize RDD - visualize the first two numbers
+print(rdd.take(2))  # [0, 1]
+
+# Print out the maximum number
+print(rdd.max())    # 999
+
+# With [getNumPartitions], we see that Spark allocated our array to the eight logical cores on my machine
+print(rdd.getNumPartitions())  # 8
